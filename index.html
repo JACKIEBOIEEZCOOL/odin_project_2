@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <style>
+    body{
+      background-color: beige;
+    }
+    button{
+      background-color: #4CAF50; /* Green */
+      border: none;
+      color: white;
+      padding: 15px 32px;
+      text-align: center;
+      text-decoration: none;
+      display: inline-block;
+      font-size: 16px;
+      margin: 4px 2px;
+      cursor: pointer;
+      font-family: 'Oswald', Arial, sans-serif;
+      transition: background-color 0.3s ease;
+    }
+    button:hover {
+      background-color: #45a049; /* Darker green on hover */
+    }
+    button:active {
+      background-color: #3e8e41; /* Even darker green on click */
+    }
+  </style>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@200..700&display=swap" rel="stylesheet">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <script>
+    const header = document.createElement('h1');
+    header.textContent = 'Etch-a-Sketch';
+    document.body.appendChild(header);
+    header.style.textAlign = 'center';
+    header.style.fontFamily = 'Oswald,Arial, sans-serif';
+    const number_of_cells = document.createElement('h2');
+    number_of_cells.textContent = '16 x 16';
+    number_of_cells.style.textAlign = 'center';
+    number_of_cells.style.fontFamily = 'Oswald, Arial, sans-serif';
+    document.body.appendChild(number_of_cells);
+    // Create a div to hold the grid
+   number_of_cells.addEventListener('click', () => {
+      const newSize = prompt('Enter new grid size (e.g., 16 for 16x16):');
+      // Clear existing cells
+      if (newSize > 100){
+        alert('Please enter a number less than 100');
+        return;
+      }
+      if (newSize) {
+        number_of_cells.textContent = `${newSize} x ${newSize}`;
+        const ts = document.getElementById('ts');
+        ts.innerHTML = ''; // Clear existing cells
+        for (let i = 0; i < newSize * newSize; i++) {
+          const cell = document.createElement('div');
+          cell.style.width = '16px';
+          cell.style.height = '16px';
+          cell.style.border = '1px solid black';
+          ts.appendChild(cell);
+        }
+      }
+    });
+    const ts = document.createElement('div');
+    ts.id = 'ts';
+    ts.style.border = '1px solid black';
+    ts.style.padding = '20px';
+    ts.style.display = 'grid';
+    ts.style.paddingLeft = '40%';
+    ts.style.paddingRight = '50%';
+    ts.style.margin = '0 auto';
+    ts.style.gridTemplateColumns = 'repeat(16, 16px)';
+    ts.style.gridTemplateRows = 'repeat(16, 16px)';
+    document.body.appendChild(ts);
+    const ds = document.createElement('div');
+    // Add 16 x 16 = 256 square divs
+    for (let i = 0; i < 16 * 16; i++) {
+      const cell = document.createElement('div');
+      cell.style.width = '16px';
+      cell.style.height = '16px';
+      cell.style.border = '1px solid black';
+      ts.appendChild(cell);
+    
+    }
+    const button_div = document.createElement('div');
+    button_div.style.textAlign = 'center';
+    button_div.style.margin = '20px auto';
+    button_div.style.fontFamily = 'Oswald, Arial, sans-serif';
+    document.body.appendChild(button_div);
+    const color_change_button = document.createElement('button');
+    color_change_button.textContent = 'rainbow';
+    button_div.appendChild(color_change_button);
+    // Add a click event listener to the button
+    color_change_button.addEventListener('click', () => {
+      const cells = document.querySelectorAll('#ts div');
+      cells.forEach(cell => {
+        // Generate a random color
+        cell.addEventListener('mouseover', () => {
+          const randomColor = `hsl(${Math.random() * 360}, 100%, 50%)`;
+          cell.style.backgroundColor = randomColor;
+        });
+      });
+    });
+
+      //now we are going to add a mouseover event listener to each cell
+      const black_button = document.createElement('button');
+      black_button.textContent = 'black';
+      black_button.style.margin = '20px auto';
+      black_button.style.fontFamily = 'Oswald, Arial, sans-serif';
+      black_button.style.marginleft = '200px';
+      button_div.appendChild(black_button);
+      black_button.addEventListener('click', () => {
+        const cells = document.querySelectorAll('#ts div');
+        cells.forEach(cell => {
+          cell.addEventListener('mouseover', () => {
+            cell.style.backgroundColor = 'black';
+          });
+        });
+      });
+      const cells = document.querySelectorAll('#ts div');
+      cells.forEach(cell =>{
+        cell.addEventListener('mouseover', ()=> {
+          cell.style.backgroundColor = 'black';
+        })
+      })
+      //now we are going to add a button to change the grid size
+      
+      //now lets add an erase button 
+      const eraseButton = document.createElement('button');
+      eraseButton.textContent = 'Erase';
+      eraseButton.style.display = 'block';
+      eraseButton.style.margin = '20px auto';
+      document.body.appendChild(eraseButton);
+      eraseButton.addEventListener('click', () => {
+        const cells = document.querySelectorAll('#ts div');
+        cells.forEach(cell => {
+          cell.style.backgroundColor = '';
+        });
+      });
+      </script>
+</body>
+</html>
